@@ -258,11 +258,11 @@
             It needs the right <strong>context</strong> to make good decisions.
           </p>
           <div class="card fragment fade-up" style="margin-top: 1rem">
-            <p style="margin: 0"><span class="good">Data</span> - the actual tables, API responses, documents</p>
-            <p style="margin: 0.4rem 0 0"><span class="good">Semantics</span> - what "customer" or "revenue" actually means across teams</p>
-            <p style="margin: 0.4rem 0 0"><span class="good">Memory</span> - what happened before: past decisions, corrections, exceptions</p>
-            <p style="margin: 0.4rem 0 0"><span class="good">Tools</span> - what the agent can do: run queries, call APIs, trigger workflows</p>
-            <p style="margin: 0.4rem 0 0"><span class="good">Guardrails</span> - what the agent is not allowed to do: access rules, compliance, limits</p>
+            <p style="margin: 0">🗄️ <span class="good">Data</span> - the actual tables, API responses, documents</p>
+            <p style="margin: 0.4rem 0 0">🏷️ <span class="good">Semantics</span> - what "customer" or "revenue" actually means across teams</p>
+            <p style="margin: 0.4rem 0 0">🧠 <span class="good">Memory</span> - what happened before: past decisions, corrections, exceptions</p>
+            <p style="margin: 0.4rem 0 0">🔧 <span class="good">Tools</span> - what the agent can do: run queries, call APIs, trigger workflows</p>
+            <p style="margin: 0.4rem 0 0">🛡️ <span class="good">Guardrails</span> - what the agent is not allowed to do: access rules, compliance, limits</p>
           </div>
           <p class="fragment fade-up muted" style="margin-top: 1rem">
             <em>Context is everything an agent needs beyond its training:
@@ -276,11 +276,11 @@
           <h2>The audience for data engineering is shifting</h2>
           <div class="grid-2" style="margin-top: 1rem">
             <div class="card fragment fade-right">
-              <p class="kicker">Before</p>
+              <p class="kicker">👤 Before</p>
               <p>Humans only. They look at dashboards, interpret numbers, perform analytics, and ask for help when figures look off.</p>
             </div>
             <div class="card fragment fade-left">
-              <p class="kicker">After</p>
+              <p class="kicker">🤖 After</p>
               <p>Includes AI agents. They read data and act on it directly. They don't stop to question whether the data makes sense.</p>
             </div>
           </div>
@@ -294,11 +294,11 @@
           <h2>A strong data engineering core already supports this</h2>
           <p>Most of what context engineering needs already exists in a mature data platform:</p>
           <ul class="big-list" style="margin-top: 1rem">
-            <li class="fragment fade-up"><strong>Data catalog</strong> &rarr; becomes the context layer agents query</li>
-            <li class="fragment fade-up"><strong>Lineage</strong> &rarr; tells agents where the data came from and if they can trust it</li>
-            <li class="fragment fade-up"><strong>Quality monitoring</strong> &rarr; tells agents how reliable a source is right now</li>
-            <li class="fragment fade-up"><strong>Business glossary</strong> &rarr; resolves ambiguity so agents use the right definition</li>
-            <li class="fragment fade-up"><strong>Access controls</strong> &rarr; governs what agents can and cannot touch</li>
+            <li class="fragment fade-up">📚 <strong>Data catalog</strong> &rarr; becomes the context layer agents query</li>
+            <li class="fragment fade-up">🔗 <strong>Lineage</strong> &rarr; tells agents where the data came from and if they can trust it</li>
+            <li class="fragment fade-up">✅ <strong>Quality monitoring</strong> &rarr; tells agents how reliable a source is right now</li>
+            <li class="fragment fade-up">📖 <strong>Business glossary</strong> &rarr; resolves ambiguity so agents use the right definition</li>
+            <li class="fragment fade-up">🔒 <strong>Access controls</strong> &rarr; governs what agents can and cannot touch</li>
           </ul>
           <p class="fragment fade-up" style="margin-top: 1rem">
             <strong>As AI scales, these are no longer nice-to-haves. These are the baseline every organisation needs.</strong>
@@ -340,21 +340,21 @@
         <section data-transition="slide">
           <h2>For AI systems to scale, we must:</h2>
           <ul class="big-list" style="margin-top: 1rem">
-            <li class="fragment fade-up">Drive a machine-readable metadata ecosystem: where to store it, how to scale it for agents</li>
-            <li class="fragment fade-up">Evolve documentation to formalise important, unwritten rules that agents wouldn't discover by themselves</li>
-            <li class="fragment fade-up">Make data freshness a top priority: outdated data means outdated decisions</li>
-            <li class="fragment fade-up">Extend access control to cover agent behavior, not just human access</li>
-            <li class="fragment fade-up">Monitor context quality, not just data quality</li>
-            <li class="fragment fade-up">Data engineers need to be part of building AI systems</li>
+            <li class="fragment fade-up">🗄️ Drive a machine-readable metadata ecosystem: where to store it, how to scale it for agents</li>
+            <li class="fragment fade-up">📝 Evolve documentation to formalise important, unwritten rules that agents wouldn't discover by themselves</li>
+            <li class="fragment fade-up">⏱️ Make data freshness a top priority: outdated data means outdated decisions</li>
+            <li class="fragment fade-up">🔐 Extend access control to cover agent behavior, not just human access</li>
+            <li class="fragment fade-up">📊 Monitor context quality, not just data quality</li>
+            <li class="fragment fade-up">🤝 Data engineers need to be part of building AI systems</li>
           </ul>
         </section>
 
         <!-- Slide 6: Closing -->
         <section class="center" data-transition="fade">
-          <h2 style="margin-bottom: 0.2rem">Data engineering &lt;&gt; Context engineering</h2>
+          <h2 style="margin-bottom: 0.2rem">Data Engineering &lt;&gt; Context Engineering</h2>
           <hr class="divider" />
           <p class="fragment fade-up" style="margin-top: 1.2rem; font-size: clamp(1.1rem, 2.2vw, 1.5rem)">
-            The work for data engineering has evolved,<br />and we can be the first to recognise it.
+            The work for data engineering has evolved,<br />and we can be the first to recognise it, and own it.
           </p>
           <p class="fragment fade-up" style="margin-top: 1.4rem; font-size: clamp(1.1rem, 2.2vw, 1.5rem)">
             Without high-quality context, AI agents don't fail.<br />They just make bad decisions at scale.
