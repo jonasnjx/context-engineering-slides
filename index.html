@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>The Rise of Context Engineering</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css"
+      id="theme"
+    />
+
+    <style>
+      :root {
+        --bg-a: #0a0f1e;
+        --bg-b: #131a2e;
+        --accent: #38bdf8;
+        --accent-2: #a78bfa;
+        --text-main: #e2e8f0;
+        --text-dim: #94a3b8;
+        --ok: #34d399;
+        --warn: #f59e0b;
+        --bad: #f87171;
+        --card: rgba(30, 41, 59, 0.55);
+        --card-border: rgba(148, 163, 184, 0.18);
+      }
+
+      html,
+      body {
+        background:
+          radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(167, 139, 250, 0.07) 0%, transparent 50%),
+          linear-gradient(160deg, var(--bg-a), var(--bg-b));
+      }
+
+      .reveal {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        color: var(--text-main);
+      }
+
+      .reveal .slides section {
+        text-align: left;
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        letter-spacing: -0.025em;
+        text-transform: none;
+        color: #fff;
+      }
+
+      .reveal h1 {
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.08;
+      }
+
+      .reveal h2 {
+        font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+        font-weight: 700;
+      }
+
+      .reveal p,
+      .reveal li {
+        font-size: clamp(1rem, 2vw, 1.35rem);
+        line-height: 1.5;
+        font-weight: 400;
+      }
+
+      .muted {
+        color: var(--text-dim);
+      }
+
+      .center {
+        text-align: center !important;
+      }
+
+      .xl-message {
+        font-size: clamp(1.8rem, 4.5vw, 3.4rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-top: 1.5rem;
+        color: #fff;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 1.1rem 1.3rem;
+        backdrop-filter: blur(8px);
+        transition: border-color 0.3s ease;
+      }
+
+      .card:hover {
+        border-color: rgba(148, 163, 184, 0.35);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.6rem;
+        border-radius: 999px;
+        margin-bottom: 0.8rem;
+      }
+
+      .badge.rag {
+        background: rgba(56, 189, 248, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(56, 189, 248, 0.35);
+      }
+
+      .badge.ce {
+        background: rgba(167, 139, 250, 0.12);
+        color: var(--accent-2);
+        border: 1px solid rgba(167, 139, 250, 0.35);
+      }
+
+      .good {
+        color: var(--ok);
+        font-weight: 600;
+      }
+
+      .warn {
+        color: var(--warn);
+      }
+
+      .bad {
+        color: var(--bad);
+      }
+
+      .big-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .big-list li {
+        margin: 0.5rem 0;
+        padding: 0.45rem 0.7rem;
+        border-left: 3px solid rgba(56, 189, 248, 0.35);
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 8px;
+        transition: border-color 0.2s ease;
+      }
+
+      .big-list li.visible {
+        border-left-color: var(--accent);
+      }
+
+      .kicker {
+        color: var(--accent);
+        font-weight: 700;
+        font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+        letter-spacing: 0.01em;
+      }
+
+      .title-name {
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+        font-weight: 500;
+        color: var(--text-dim);
+        letter-spacing: 0.02em;
+      }
+
+      .title-sub {
+        font-size: clamp(1rem, 1.8vw, 1.3rem);
+        color: var(--text-dim);
+        margin-top: 1.5rem;
+      }
+
+      .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        border: none;
+        border-radius: 2px;
+        margin: 1.2rem 0;
+      }
+
+      .center .divider {
+        margin: 1.2rem auto;
+      }
+
+      .hint {
+        position: fixed;
+        right: 16px;
+        bottom: 12px;
+        z-index: 50;
+        font-size: 0.8rem;
+        color: rgba(148, 163, 184, 0.5);
+        background: rgba(2, 6, 23, 0.5);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 8px;
+        padding: 0.3rem 0.5rem;
+        pointer-events: none;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      .reveal .progress {
+        color: var(--accent);
+        height: 3px;
+      }
+
+      .reveal .controls {
+        color: rgba(148, 163, 184, 0.4);
+      }
+
+      .reveal .slide-number {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        background: transparent;
+      }
+
+      @media (max-width: 900px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Slide 0: Introduction -->
+        <section class="center" data-transition="zoom-in slide-out">
+          <p class="title-name">Presented by: Jonas Ng</p>
+          <h1>Context Engineering</h1>
+          <hr class="divider" />
+          <p class="title-sub">From a data engineering perspective</p>
+        </section>
+
+        <!-- Slide 1: What is Context Engineering -->
+        <section data-transition="slide">
+          <h2>What is Context Engineering?</h2>
+          <p>
+            When an AI agent runs a task, it needs more than a prompt.
+            It needs the right <strong>context</strong> to make good decisions.
+          </p>
+          <div class="card fragment fade-up" style="margin-top: 1rem">
+            <p style="margin: 0"><span class="good">Data</span> - the actual tables, API responses, documents</p>
+            <p style="margin: 0.4rem 0 0"><span class="good">Semantics</span> - what "customer" or "revenue" actually means across teams</p>
+            <p style="margin: 0.4rem 0 0"><span class="good">Memory</span> - what happened before: past decisions, corrections, exceptions</p>
+            <p style="margin: 0.4rem 0 0"><span class="good">Tools</span> - what the agent can do: run queries, call APIs, trigger workflows</p>
+            <p style="margin: 0.4rem 0 0"><span class="good">Guardrails</span> - what the agent is not allowed to do: access rules, compliance, limits</p>
+          </div>
+          <p class="fragment fade-up muted" style="margin-top: 1rem">
+            <em>Context is everything an agent needs beyond its training:
+            the data, the meaning behind it, what happened before,
+            what it can do, and what it's not allowed to do.</em>
+          </p>
+        </section>
+
+        <!-- Slide 2: The Audience Shift -->
+        <section data-transition="convex">
+          <h2>The audience for data engineering is shifting</h2>
+          <div class="grid-2" style="margin-top: 1rem">
+            <div class="card fragment fade-right">
+              <p class="kicker">Before</p>
+              <p>Humans only. They look at dashboards, interpret numbers, perform analytics, and ask for help when figures look off.</p>
+            </div>
+            <div class="card fragment fade-left">
+              <p class="kicker">After</p>
+              <p>Includes AI agents. They read data and act on it directly. They don't stop to question whether the data makes sense.</p>
+            </div>
+          </div>
+          <p class="xl-message fragment fade-up center" style="margin-top: 1.2rem">
+            If the context is wrong, the agent makes a wrong decision.
+          </p>
+        </section>
+
+        <!-- Slide 3: Data Engineering already drives the foundation -->
+        <section data-transition="fade">
+          <h2>A strong data engineering core already supports this</h2>
+          <p>Most of what context engineering needs already exists in a mature data platform:</p>
+          <ul class="big-list" style="margin-top: 1rem">
+            <li class="fragment fade-up"><strong>Data catalog</strong> &rarr; becomes the context layer agents query</li>
+            <li class="fragment fade-up"><strong>Lineage</strong> &rarr; tells agents where the data came from and if they can trust it</li>
+            <li class="fragment fade-up"><strong>Quality monitoring</strong> &rarr; tells agents how reliable a source is right now</li>
+            <li class="fragment fade-up"><strong>Business glossary</strong> &rarr; resolves ambiguity so agents use the right definition</li>
+            <li class="fragment fade-up"><strong>Access controls</strong> &rarr; governs what agents can and cannot touch</li>
+          </ul>
+          <p class="fragment fade-up" style="margin-top: 1rem">
+            <strong>As AI scales, these are no longer nice-to-haves. These are the baseline every organisation needs.</strong>
+          </p>
+        </section>
+
+        <!-- Slide 4: Data Eng scope has expanded -->
+        <section data-transition="concave">
+          <h2>Data engineering work is no longer just data engineering</h2>
+          <p>It now includes context engineering for AI solutions.</p>
+          <div class="grid-2 fragment fade-up" style="margin-top: 1rem">
+            <div class="card">
+              <p class="kicker">Data engineering</p>
+              <ul>
+                <li>Build pipelines for human consumers</li>
+                <li>Freshness matters for dashboards</li>
+                <li>Definitions live in docs humans can read</li>
+                <li>Governance = who can access what</li>
+              </ul>
+            </div>
+            <div class="card">
+              <p class="kicker">+ Context engineering</p>
+              <ul>
+                <li>Build pipelines for AI agents too</li>
+                <li>Freshness directly affects agent decisions</li>
+                <li>Definitions must be machine-readable and unambiguous</li>
+                <li>Governance = what agents can access <em>and do</em></li>
+              </ul>
+            </div>
+          </div>
+          <p class="fragment fade-up muted" style="margin-top: 1rem">
+            Same foundations, broader scope.
+            Humans can judge when something looks wrong. Agents can't.
+            That's why data engineers, who own the data domain knowledge, need to own what gets fed into them.
+          </p>
+        </section>
+
+        <!-- Slide 5: For AI to scale -->
+        <section data-transition="slide">
+          <h2>For AI systems to scale, we must:</h2>
+          <ul class="big-list" style="margin-top: 1rem">
+            <li class="fragment fade-up">Drive a machine-readable metadata ecosystem: where to store it, how to scale it for agents</li>
+            <li class="fragment fade-up">Evolve documentation to formalise important, unwritten rules that agents wouldn't discover by themselves</li>
+            <li class="fragment fade-up">Make data freshness a top priority: outdated data means outdated decisions</li>
+            <li class="fragment fade-up">Extend access control to cover agent behavior, not just human access</li>
+            <li class="fragment fade-up">Monitor context quality, not just data quality</li>
+            <li class="fragment fade-up">Data engineers need to be part of building AI systems</li>
+          </ul>
+        </section>
+
+        <!-- Slide 6: Closing -->
+        <section class="center" data-transition="fade">
+          <h2 style="margin-bottom: 0.2rem">Data engineering &lt;&gt; Context engineering</h2>
+          <hr class="divider" />
+          <p class="fragment fade-up" style="margin-top: 1.2rem; font-size: clamp(1.1rem, 2.2vw, 1.5rem)">
+            The work for data engineering has evolved,<br />and we can be the first to recognise it.
+          </p>
+          <p class="fragment fade-up" style="margin-top: 1.4rem; font-size: clamp(1.1rem, 2.2vw, 1.5rem)">
+            Without high-quality context, AI agents don't fail.<br />They just make bad decisions at scale.
+          </p>
+        </section>
+
+        <!-- Slide 7: Thank you -->
+        <section class="center" data-transition="zoom">
+          <h1 style="font-size: clamp(2.8rem, 6vw, 5rem)">Thank you</h1>
+          <hr class="divider" />
+        </section>
+      </div>
+    </div>
+
+    <div class="hint">Arrow keys / Space to navigate</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: false,
+        controls: true,
+        progress: true,
+        center: true,
+        transition: "slide",
+        backgroundTransition: "fade",
+        transitionSpeed: "default",
+        slideNumber: "c/t",
+        navigationMode: "default",
+        touch: true,
+        embedded: false
+      });
+    </script>
+  </body>
+</html>
